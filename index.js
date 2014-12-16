@@ -8,30 +8,30 @@
   _module = function(){
     var process, iface;
     process = function(block, opts){
-      var params;
-      params = opts.params;
-      return new Promise(function(resolve, preject){
-        var tempPrefix, tempFile, cmd;
-        if (opts.targetMode !== "pdf") {
-          tempPrefix = uid(7);
-          tempFile = opts.tmpdir + "/" + tempPrefix + ".dia";
-          block.to(tempFile);
-          cmd = __dirname + "/node_modules/.bin/ascidia-cli -t svg " + tempFile;
-          return exec(cmd, {
-            async: true,
-            silent: true
-          }, function(code, output){
-            if (!code) {
-              output = cat(opts.tmpdir + "/" + tempPrefix + ".svg");
-              return resolve(output);
-            } else {
-              return resolve("```{ascidia}" + output + "```");
-            }
-          });
-        } else {
-          return resolve("```{ascidia " + params + "}" + block + "```");
+      var defaultIsSvg, targets;
+      defaultIsSvg = {
+        cmd: function(block, tmpFile, tmpDir){
+          block.to(tmpDir + "/" + tmpFile + ".dia");
+          return __dirname + "/node_modules/.bin/ascidia-cli -t svg " + tmpDir + "/" + tmpFile + ".dia > /dev/null && cat " + tmpDir + "/" + tmpFile + ".svg";
+        },
+        output: function(tmpFile, tmpDir, output){
+          return cat(tmpDir + "/" + tmpFile + ".svg");
         }
-      });
+      };
+      targets = {
+        'default': defaultIsSvg,
+        svg: defaultIsSvg,
+        png: {
+          cmd: function(block, tmpFile, tmpDir){
+            block.to(tmpDir + "/" + tmpFile + ".dia");
+            return __dirname + "/node_modules/.bin/ascidia-cli -t png " + tmpDir + "/" + tmpFile + ".dia > /dev/null && cat " + tmpDir + "/" + tmpFile + ".png | base64";
+          },
+          output: function(tmpFile, tmpDir, output){
+            return '\n <img class="exemd--diagram exemd--diagram__ascidia" src="data:image/png;base64,' + output + '" /> \n';
+          }
+        }
+      };
+      return opts.pluginTemplate(targets, block, opts);
     };
     iface = {
       process: process
