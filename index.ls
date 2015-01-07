@@ -3,8 +3,11 @@ Promise = require('bluebird')
 {exec,cat}  = require('shelljs')
 uid     = require('uid')
 
+cwd = process.cwd()
 
 _module = ->
+
+    pic-num = 0
 
     process = (block, opts) ->
 
@@ -28,6 +31,23 @@ _module = ->
             return "#{__dirname}/node_modules/.bin/ascidia-cli -t png #tmp-dir/#tmp-file.dia > /dev/null && cat #tmp-dir/#tmp-file.png | base64"
 
           output: (tmp-file, tmp-dir, output) -> '\n <img class="exemd--diagram exemd--diagram__ascidia" src="data:image/png;base64,' + output + '" /> \n'  
+        }
+
+        pdf: {
+          cmd: (block, tmp-file, tmp-dir) ->
+            block.to("#tmp-dir/#tmp-file.dia")
+            cc = [
+              "#{__dirname}/node_modules/.bin/ascidia-cli -t png #tmp-dir/#tmp-file.dia > /dev/null"
+              "mkdir -p #cwd/figures"
+              "cat #tmp-dir/#tmp-file.png > #cwd/figures/f-ascidia-#{pic-num}.png"
+            ]
+            return cc * ' && '
+
+          output: (tmp-file, tmp-dir, output) ->
+             fname = "#cwd/figures/f-ascidia-#{pic-num}.png"
+             pic-num := pic-num + 1
+             return "![](#fname)"
+
         }
       }
 
