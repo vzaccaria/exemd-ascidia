@@ -36,12 +36,12 @@
           cmd: function(block, tmpFile, tmpDir){
             var cc;
             block.to(tmpDir + "/" + tmpFile + ".dia");
-            cc = [__dirname + "/node_modules/.bin/ascidia-cli -t png " + tmpDir + "/" + tmpFile + ".dia > /dev/null", "mkdir -p " + cwd + "/figures", "cat " + tmpDir + "/" + tmpFile + ".png > " + cwd + "/figures/f-ascidia-" + picNum + ".png"];
+            cc = [__dirname + "/node_modules/.bin/ascidia-cli -t svg " + tmpDir + "/" + tmpFile + ".dia > /dev/null", "mkdir -p " + cwd + "/figures", "cat " + tmpDir + "/" + tmpFile + ".svg | rsvg-convert -z 0.5 -f pdf > " + cwd + "/figures/f-ascidia-" + picNum + ".pdf"];
             return join$.call(cc, ' && ');
           },
           output: function(tmpFile, tmpDir, output){
             var fname;
-            fname = cwd + "/figures/f-ascidia-" + picNum + ".png";
+            fname = cwd + "/figures/f-ascidia-" + picNum + ".pdf";
             picNum = picNum + 1;
             return "![](" + fname + ")";
           }

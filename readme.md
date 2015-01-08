@@ -10,7 +10,7 @@ npm i -g exemd-ascidia
 
 ## Additional instructions
 
-Install Python2.7 and PyCairo before this plugin.
+Install Python2.7 and PyCairo before this plugin. Besides, install rsvg-convert for pdf output.
 
 ## Options
 

@@ -37,14 +37,14 @@ _module = ->
           cmd: (block, tmp-file, tmp-dir) ->
             block.to("#tmp-dir/#tmp-file.dia")
             cc = [
-              "#{__dirname}/node_modules/.bin/ascidia-cli -t png #tmp-dir/#tmp-file.dia > /dev/null"
+              "#{__dirname}/node_modules/.bin/ascidia-cli -t svg #tmp-dir/#tmp-file.dia > /dev/null"
               "mkdir -p #cwd/figures"
-              "cat #tmp-dir/#tmp-file.png > #cwd/figures/f-ascidia-#{pic-num}.png"
+              "cat #tmp-dir/#tmp-file.svg | rsvg-convert -z 0.5 -f pdf > #cwd/figures/f-ascidia-#{pic-num}.pdf"
             ]
             return cc * ' && '
 
           output: (tmp-file, tmp-dir, output) ->
-             fname = "#cwd/figures/f-ascidia-#{pic-num}.png"
+             fname = "#cwd/figures/f-ascidia-#{pic-num}.pdf"
              pic-num := pic-num + 1
              return "![](#fname)"
 
