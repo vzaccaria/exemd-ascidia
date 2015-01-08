@@ -7,7 +7,9 @@ cwd = process.cwd()
 
 _module = ->
 
-    pic-num = 0
+    var pic-num
+
+    pic-num := 0
 
     process = (block, opts) ->
 
@@ -37,15 +39,16 @@ _module = ->
           cmd: (block, tmp-file, tmp-dir) ->
             block.to("#tmp-dir/#tmp-file.dia")
             cc = [
-              "#{__dirname}/node_modules/.bin/ascidia-cli -t svg #tmp-dir/#tmp-file.dia > /dev/null"
+              "#{__dirname}/node_modules/.bin/ascidia-cli -c 20 -t svg #tmp-dir/#tmp-file.dia > /dev/null"
               "mkdir -p #cwd/figures"
               "cat #tmp-dir/#tmp-file.svg | rsvg-convert -z 0.5 -f pdf > #cwd/figures/f-ascidia-#{pic-num}.pdf"
+              "echo '#cwd/figures/f-ascidia-#{pic-num}.pdf'"
             ]
+            pic-num := pic-num + 1
             return cc * ' && '
 
           output: (tmp-file, tmp-dir, output) ->
-             fname = "#cwd/figures/f-ascidia-#{pic-num}.pdf"
-             pic-num := pic-num + 1
+             fname = output
              return "![](#fname)"
 
         }
