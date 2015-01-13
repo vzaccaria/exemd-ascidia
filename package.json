@@ -3,9 +3,6 @@
   "version": "0.0.16",
   "description": "Ascidia driver for `exemd`",
   "main": "./index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "keywords": [],
   "author": "Vittorio Zaccaria",
   "license": "BSD",
