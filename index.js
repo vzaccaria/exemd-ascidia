@@ -14,7 +14,7 @@
       defaultIsSvg = {
         cmd: function(block, tmpFile, tmpDir){
           block.to(tmpDir + "/" + tmpFile + ".dia");
-          return __dirname + "/node_modules/.bin/ascidia-cli -t svg " + tmpDir + "/" + tmpFile + ".dia > /dev/null && cat " + tmpDir + "/" + tmpFile + ".svg";
+          return __dirname + "/node_modules/.bin/ascidia-cli -t svg '" + tmpDir + "/" + tmpFile + ".dia' > /dev/null && cat '" + tmpDir + "/" + tmpFile + ".svg'";
         },
         output: function(tmpFile, tmpDir, output){
           return cat(tmpDir + "/" + tmpFile + ".svg");
@@ -26,7 +26,7 @@
         png: {
           cmd: function(block, tmpFile, tmpDir){
             block.to(tmpDir + "/" + tmpFile + ".dia");
-            return __dirname + "/node_modules/.bin/ascidia-cli -t png " + tmpDir + "/" + tmpFile + ".dia > /dev/null && cat " + tmpDir + "/" + tmpFile + ".png | base64";
+            return __dirname + "/node_modules/.bin/ascidia-cli -t png '" + tmpDir + "/" + tmpFile + ".dia' > /dev/null && cat '" + tmpDir + "/" + tmpFile + ".png' | base64";
           },
           output: function(tmpFile, tmpDir, output){
             return '\n <img class="exemd--diagram exemd--diagram__ascidia" src="data:image/png;base64,' + output + '" /> \n';
@@ -36,7 +36,7 @@
           cmd: function(block, tmpFile, tmpDir){
             var cc;
             block.to(tmpDir + "/" + tmpFile + ".dia");
-            cc = [__dirname + "/node_modules/.bin/ascidia-cli -c 20 -t svg " + tmpDir + "/" + tmpFile + ".dia > /dev/null", "mkdir -p " + cwd + "/figures", "cat " + tmpDir + "/" + tmpFile + ".svg | rsvg-convert -z 0.5 -f pdf > " + cwd + "/figures/f-ascidia-" + picNum + ".pdf", "echo '" + cwd + "/figures/f-ascidia-" + picNum + ".pdf'"];
+            cc = [__dirname + "/node_modules/.bin/ascidia-cli -c 20 -t svg '" + tmpDir + "/" + tmpFile + ".dia' > /dev/null", "mkdir -p '" + cwd + "/figures'", "cat '" + tmpDir + "/" + tmpFile + ".svg' | rsvg-convert -z 0.5 -f pdf > '" + cwd + "/figures/f-ascidia-" + picNum + ".pdf'", "echo '" + cwd + "/figures/f-ascidia-" + picNum + ".pdf'"];
             picNum = picNum + 1;
             return join$.call(cc, ' && ');
           },

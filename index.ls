@@ -17,7 +17,7 @@ _module = ->
 
          cmd: (block, tmp-file, tmp-dir) -> 
             block.to("#tmp-dir/#tmp-file.dia")
-            return "#{__dirname}/node_modules/.bin/ascidia-cli -t svg #tmp-dir/#tmp-file.dia > /dev/null && cat #tmp-dir/#tmp-file.svg"
+            return "#{__dirname}/node_modules/.bin/ascidia-cli -t svg '#tmp-dir/#tmp-file.dia' > /dev/null && cat '#tmp-dir/#tmp-file.svg'"
 
          output: (tmp-file, tmp-dir, output) -> cat("#tmp-dir/#tmp-file.svg")
          }
@@ -30,7 +30,7 @@ _module = ->
         png: {
           cmd: (block, tmp-file, tmp-dir) -> 
             block.to("#tmp-dir/#tmp-file.dia")
-            return "#{__dirname}/node_modules/.bin/ascidia-cli -t png #tmp-dir/#tmp-file.dia > /dev/null && cat #tmp-dir/#tmp-file.png | base64"
+            return "#{__dirname}/node_modules/.bin/ascidia-cli -t png '#tmp-dir/#tmp-file.dia' > /dev/null && cat '#tmp-dir/#tmp-file.png' | base64"
 
           output: (tmp-file, tmp-dir, output) -> '\n <img class="exemd--diagram exemd--diagram__ascidia" src="data:image/png;base64,' + output + '" /> \n'  
         }
@@ -39,9 +39,9 @@ _module = ->
           cmd: (block, tmp-file, tmp-dir) ->
             block.to("#tmp-dir/#tmp-file.dia")
             cc = [
-              "#{__dirname}/node_modules/.bin/ascidia-cli -c 20 -t svg #tmp-dir/#tmp-file.dia > /dev/null"
-              "mkdir -p #cwd/figures"
-              "cat #tmp-dir/#tmp-file.svg | rsvg-convert -z 0.5 -f pdf > #cwd/figures/f-ascidia-#{pic-num}.pdf"
+              "#{__dirname}/node_modules/.bin/ascidia-cli -c 20 -t svg '#tmp-dir/#tmp-file.dia' > /dev/null"
+              "mkdir -p '#cwd/figures'"
+              "cat '#tmp-dir/#tmp-file.svg' | rsvg-convert -z 0.5 -f pdf > '#cwd/figures/f-ascidia-#{pic-num}.pdf'"
               "echo '#cwd/figures/f-ascidia-#{pic-num}.pdf'"
             ]
             pic-num := pic-num + 1
