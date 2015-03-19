@@ -1,4 +1,4 @@
-
-x.dot
-
-x.html
+node_modules
+lib
+makefile
+docs/exemd-dot.png

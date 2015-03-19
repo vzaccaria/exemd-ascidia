@@ -1,19 +1,38 @@
 {
   "name": "exemd-ascidia",
-  "version": "0.0.17",
+  "version": "0.2.0",
   "description": "Ascidia driver for `exemd`",
-  "main": "./index.js",
-  "keywords": [],
+  "main": "index.js",
+  "scripts": {
+    "test": "make test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/vzaccaria/exemd-ascidia.git"
+  },
   "author": "Vittorio Zaccaria",
   "license": "BSD",
+  "bugs": {
+    "url": "https://github.com/vzaccaria/exemd-ascidia/issues"
+  },
+  "homepage": "https://github.com/vzaccaria/exemd-ascidia",
   "dependencies": {
     "ascidia-cli": "0.0.2",
-    "bluebird": "~2.3.11",
-    "docopt": "~0.4.1",
+    "bluebird": "^2.9.14",
+    "debug": "^2.1.3",
+    "diy-build": "^1.0.8",
+    "docopt": "^0.6.0",
+    "rewire": "^2.3.1",
     "shelljs": "~0.3.0",
-    "should": "~4.4.0",
-    "sinon": "~1.12.2",
-    "uid": "0.0.2",
-    "xyz": "^0.5.0"
+    "uid": "0.0.2"
+  },
+  "devDependencies": {
+    "babel": "^4.7.16",
+    "xyz": "*",
+    "verb": "*",
+    "verb-cli": "*",
+    "mocha": "*",
+    "chai": "*",
+    "chai-as-promised": "*"
   }
 }
