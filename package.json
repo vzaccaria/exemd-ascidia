@@ -1,6 +1,6 @@
 {
   "name": "exemd-ascidia",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Ascidia driver for `exemd`",
   "main": "index.js",
   "scripts": {
