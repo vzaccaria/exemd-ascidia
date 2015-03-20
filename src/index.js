@@ -5,14 +5,14 @@ require('shelljs')
 
 var picnum = 0
 
-var pdfAscidiaCmd = (file, type) => {
+var pdfAscidiaCmd = (file, dir, type) => {
   "use strict"
-  return `${__dirname}/node_modules/.bin/ascidia-cli -c 20 -t ${type} '${file}.dia' > /dev/null `
+  return `${__dirname}/node_modules/.bin/ascidia-cli -c 20 -t ${type} '${dir}/${file}.dia' > /dev/null `
 }
 
-var ascidiaCmd = (file, type) => {
+var ascidiaCmd = (file, dir, type) => {
   "use strict"
-  return `${__dirname}/node_modules/.bin/ascidia-cli -t ${type} '${file}.dia' > /dev/null && cat '${file}.${type}'`
+  return `${__dirname}/node_modules/.bin/ascidia-cli -t ${type} '${dir}/${file}.dia' > /dev/null && cat '${dir}/${file}.${type}'`
 }
 
 
@@ -22,7 +22,7 @@ var generateSvg = () => {
     cmd: (block, file, dir, params) => {
       var fn = `${dir}/${file}.dia`
       block.to(fn)
-      return ascidiaCmd(file, "svg")
+      return ascidiaCmd(file, dir, "svg")
     },
     output: (file, dir, output) => {
       return cat(`${dir}/${file}.svg`);
@@ -36,7 +36,7 @@ var generatePng = () => {
     cmd: (block, file, dir, params) => {
       var fn = `${dir}/${file}.dia`
       block.to(fn)
-      return `${ascidiaCmd(file, "png")} | base64`
+      return `${ascidiaCmd(file, dir, "png")} | base64`
     },
     output: (file, dir, output) => {
       return `\n <img class="exemd--diagram exemd--diagram__ascidia" src="data:image/png;base64,${output}" /> \n`;
@@ -51,10 +51,10 @@ var generatePdf = () => {
       var fn = `${dir}/${file}.dia`
       block.to(fn)
       var cc = [
-        `${pdfAscidiaCmd(file, "svg")}`,
+        `${pdfAscidiaCmd(file, dir, "svg")}`,
         `mkdir -p './figures'`,
-        `cat '${dir}/${file}.svg' | rsvg-convert -z 0.5 -f pdf > './figures/f-dot-${picnum}.pdf'`,
-        `echo './figures/f-dot-${picnum}.pdf'`
+        `cat '${dir}/${file}.svg' | rsvg-convert -z 0.5 -f pdf > './figures/f-ascidia-${picnum}.pdf'`,
+        `echo './figures/f-ascidia-${picnum}.pdf'`
       ]
       picnum = picnum + 1
       return cc.join(' && ')

@@ -37,7 +37,7 @@ describe('#getTargets', () => {
     "tst".to("./tmp.svg")
     var o = output("tmp", ".", "svg")
 
-    expect(cc).to.have.string("exemd-ascidia/node_modules/.bin/ascidia-cli -t svg \'tmp.dia\' > /dev/null && cat \'tmp.svg\'")
+    expect(cc).to.have.string("exemd-ascidia/node_modules/.bin/ascidia-cli -t svg \'./tmp.dia\' > /dev/null && cat \'./tmp.svg\'")
     o.should.be.equal("tst")
 
     rm("-f", "./tmp.dia")
@@ -57,7 +57,7 @@ describe('#getTargets', () => {
     "tst".to("./tmp.png")
     var o = output("tmp", ".", "tst")
 
-    expect(cc).to.have.string("exemd-ascidia/node_modules/.bin/ascidia-cli -t png \'tmp.dia\' > /dev/null && cat \'tmp.png\' | base64")
+    expect(cc).to.have.string("exemd-ascidia/node_modules/.bin/ascidia-cli -t png \'./tmp.dia\' > /dev/null && cat \'./tmp.png\' | base64")
     o.should.be.equal(`\n <img class="exemd--diagram exemd--diagram__ascidia" src="data:image/png;base64,tst" /> \n`)
 
     rm("-f", "./tmp.dia")
@@ -76,7 +76,7 @@ describe('#getTargets', () => {
     "tst".to("./tmp.svg")
     var o = output("tmp", ".", "./figures/f-dot-0.pdf")
 
-    expect(cc).to.have.string("exemd-ascidia/node_modules/.bin/ascidia-cli -c 20 -t svg \'tmp.dia\' > /dev/null  && mkdir -p \'./figures\' && cat \'./tmp.svg\' | rsvg-convert -z 0.5 -f pdf > \'./figures/f-dot-0.pdf\' && echo \'./figures/f-dot-0.pdf\'")
+    expect(cc).to.have.string("exemd-ascidia/node_modules/.bin/ascidia-cli -c 20 -t svg \'./tmp.dia\' > /dev/null  && mkdir -p \'./figures\' && cat \'./tmp.svg\' | rsvg-convert -z 0.5 -f pdf > \'./figures/f-ascidia-0.pdf\' && echo \'./figures/f-ascidia-0.pdf\'")
     o.should.be.equal("![](./figures/f-dot-0.pdf)")
 
     rm("-f", "./tmp.dia")
