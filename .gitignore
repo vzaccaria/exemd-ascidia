@@ -1,4 +1,5 @@
 node_modules
 lib
 makefile
-docs/exemd-dot.png
+docs/exemd-ascidia.png
+src/source.png

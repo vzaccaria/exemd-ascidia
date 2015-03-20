@@ -32,7 +32,7 @@ generateProject(_ => {
   })
 
   _.collect("docs", _ => {
-    // _.cmd("dot -Tpng src/source.dot > docs/exemd-dot.png")
+    _.cmd("./node_modules/.bin/ascidia-cli -t png \'src/source.dia\' > /dev/null && cp \'src/source.png\' docs/exemd-ascidia.png")
   })
 
   _.collect("update", _ => {
